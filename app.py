@@ -13,7 +13,7 @@ st.markdown("""
         background-color: #f0f8ff;
     }
     .main {
-        padding: 2rem;
+        
         font-family: 'Helvetica', sans-serif;
     }
     h1, h2, h3 {
