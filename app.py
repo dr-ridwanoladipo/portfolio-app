@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+from send_email import send_email  # Make sure this import works with your setup
 
 # Page configuration
 st.set_page_config(page_title="Dr. Ridwan Oladipo - Portfolio", layout="wide")
@@ -47,13 +48,6 @@ st.markdown("""
     .skill-box:hover {
         background-color: #bbdefb;
     }
-    .profile-header {
-        background-color: #ffffff;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 2rem;
-    }
     .contact-link {
         background-color: #2ecc71;
         color: white;
@@ -88,15 +82,42 @@ st.markdown("""
         padding: 1rem;
         background-color: white;
     }
+    .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .tech-item {
+        background-color: #e3f2fd;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    .tech-item:hover {
+        background-color: #bbdefb;
+        transform: translateY(-2px);
+    }
+    .tech-item .emoji {
+        margin-right: 0.5rem;
+    }
+    .desktop-view-message {
+        background-color: #fff3cd;
+        border-left: 5px solid #ffeeba;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
+
 def main():
-    # Profile Header
-    st.markdown("<div class='profile-header'>", unsafe_allow_html=True)
+
     col1, col2 = st.columns([1, 2])
     with col1:
-        st.image('rid2.png', width=200)
+        st.image('rid2.png')
     with col2:
         st.title("Dr. Ridwan Oladipo")
         st.write("Medical Doctor | Data Scientist | Innovator")
@@ -115,16 +136,35 @@ def main():
     # Education
     st.subheader("🎓 Education")
     st.write("- MB.ChB, Obafemi Awolowo University, Nigeria (2024)")
-    st.write("- One of the top performing medical students in my graduating class")
+    st.write("- Consistently ranked among the top students in my graduating class.")
 
     # Skills
     st.subheader("🛠️ Tech Stack")
-    skills = ["Python", "Data Science", "Machine Learning", "AI", "PyTorch", "Django", "Flask", "HTML/CSS/JavaScript"]
-    for skill in skills:
-        st.markdown(f"<span class='skill-box'>{skill}</span>", unsafe_allow_html=True)
+    tech_stack = [
+        ("🐍", "Python"),
+        ("📊", "Data Science"),
+        ("🤖", "AI / Machine Learning"),
+        ("🌐", "Flask / Django"),
+        ("💾", "SQL (PostgreSQL, MySQL, SQLite)"),
+        ("🗣️", "Natural Language Processing (NLP)"),
+        ("🔥", "PyTorch"),
+        ("👁️", "Computer Vision"),
+        ("💻", "HTML / CSS / JavaScript")
+    ]
+
+    st.markdown("<div class='tech-stack'>", unsafe_allow_html=True)
+    for emoji, tech in tech_stack:
+        st.markdown(f"<div class='tech-item'><span class='emoji'>{emoji}</span>{tech}</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Projects
     st.header("🚀 Featured Projects")
+    st.markdown("""
+    <div class='desktop-view-message'>
+        <strong>📌 Note:</strong> While these projects are responsive, a desktop view is recommended for the best experience with live demos.
+    </div>
+    """, unsafe_allow_html=True)
+
     projects = [
         {
             "name": "WeatherPro",
@@ -230,13 +270,22 @@ def main():
     - Developing a world-class, AI-driven medical education platform to support aspiring and current medical students globally.
     """)
 
-    # Contact Link
-    st.sidebar.title("Contact Me")
-    st.sidebar.info(
-        "To get in touch, please use the contact form in the sidebar or click the button below."
-    )
-    if st.sidebar.button("Go to Contact Form"):
-        st.session_state.page = "Contact_Us"
+    # Contact Form
+    st.header("📩 Contact Me")
+    with st.form(key="email_forms"):
+        user_email = st.text_input("Your email address")
+        raw_message = st.text_area("Your message")
+        message = f"""\
+Subject: New email from {user_email}
+
+From: {user_email}
+{raw_message}
+"""
+        button = st.form_submit_button("Submit")
+        if button:
+            send_email(message)
+            st.success("Your message was sent successfully!")
+
 
 if __name__ == "__main__":
     main()
