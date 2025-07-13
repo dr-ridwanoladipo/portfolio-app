@@ -2,3 +2,4 @@ jottng.txt
 .venv
 .idea
 .env
+app_helpers.py

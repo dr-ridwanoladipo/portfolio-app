@@ -1,284 +1,291 @@
-"""
-🩺 Dr. Ridwan Oladipo - Medical AI Specialist Portfolio
-Main application file that uses helper functions from app_helpers.py
-
-Author: Dr. Ridwan Oladipo, MD | Medical AI Specialist
-"""
-
 import streamlit as st
-from app_helpers import (
-    load_custom_css,
-    render_hero_section,
-    render_section_header,
-    render_project_card,
-    render_timeline_item,
-    render_skill_section,
-    render_contact_form,
-    render_footer,
-    get_featured_projects,
-    get_timeline_data,
-    get_skills_data
-)
+from PIL import Image
+from send_email import send_email  # Make sure this import works with your setup
 
-# ===============================
-# PAGE CONFIGURATION
-# ===============================
-st.set_page_config(
-    page_title="Dr. Ridwan Oladipo | Medical AI Specialist",
-    page_icon="🩺",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
+# Page configuration
+st.set_page_config(page_title="Dr. Ridwan Oladipo - Portfolio", layout="wide")
+
+# Custom CSS to improve the app's appearance
+st.markdown("""
+<style>
+    body {
+        color: #333;
+        background-color: #f0f8ff;
+    }
+    .main {
+        padding: 0.1rem;
+        font-family: 'Helvetica', sans-serif;
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+    }
+    .stButton>button {
+        background-color: #3498db;
+        color: white;
+        font-weight: bold;
+    }
+    .project-card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 2px solid #3498db;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+    .skill-box {
+        background-color: #e3f2fd;
+        border-radius: 5px;
+        padding: 0.5rem;
+        margin: 0.2rem;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+    .skill-box:hover {
+        background-color: #bbdefb;
+    }
+    .contact-link {
+        background-color: #2ecc71;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+    }
+    .contact-link:hover {
+        background-color: #27ae60;
+        transform: translateY(-2px);
+    }
+    .emoji-header {
+        font-size: 1.5em;
+        margin-right: 0.5rem;
+    }
+    .custom-expander {
+        border: 1px solid #3498db;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+    }
+    .custom-expander summary {
+        background-color: #3498db;
+        color: white;
+        padding: 0.5rem;
+        cursor: pointer;
+    }
+    .custom-expander .content {
+        padding: 1rem;
+        background-color: white;
+    }
+    .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .tech-item {
+        background-color: #e3f2fd;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    .tech-item:hover {
+        background-color: #bbdefb;
+        transform: translateY(-2px);
+    }
+    .tech-item .emoji {
+        margin-right: 0.5rem;
+    }
+    .desktop-view-message {
+        background-color: #fff3cd;
+        border-left: 5px solid #ffeeba;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 
-# ===============================
-# MAIN APPLICATION
-# ===============================
 def main():
-    """Main portfolio application."""
 
-    # Load custom CSS styling
-    load_custom_css()
-
-    # ========== HERO SECTION ==========
-    render_hero_section()
-
-    # ========== MISSION STATEMENT ==========
-    render_section_header(
-        "🎯 Mission Statement",
-        "As a recently graduated Medical Doctor with specialized expertise in AI and machine learning, "
-        "I'm dedicated to developing production-grade medical AI systems that transform clinical decision-making. "
-        "My unique combination of medical domain knowledge and advanced technical skills positions me to build "
-        "clinically-validated, explainable AI solutions for real-world healthcare challenges."
-    )
-
-    # ========== FEATURED PROJECTS ==========
-    render_section_header(
-        "🏥 Featured Medical AI Portfolio",
-        "Production-ready healthcare AI systems combining clinical expertise with advanced machine learning"
-    )
-
-    # Create columns for projects
-    projects = get_featured_projects()
-    cols = st.columns(3)
-
-    for i, project in enumerate(projects):
-        render_project_card(project, cols[i])
-
-    # ========== PROFESSIONAL TIMELINE ==========
-    render_section_header(
-        "📚 Professional Evolution",
-        "Strategic transformation from clinical medicine to medical AI specialist"
-    )
-
-    # Timeline container
-    st.markdown('<div class="timeline-container"><div class="timeline-line"></div>', unsafe_allow_html=True)
-
-    timeline_data = get_timeline_data()
-    for item in timeline_data:
-        render_timeline_item(item["year"], item["title"], item["description"])
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    # ========== TECHNICAL EXPERTISE ==========
-    render_section_header(
-        "🧬 Technical Expertise",
-        "Deep specialization in medical AI with production deployment capabilities"
-    )
-
-    # Skills grid
-    skills_data = get_skills_data()
-    col1, col2 = st.columns(2)
-
+    col1, col2 = st.columns([1, 2])
     with col1:
-        render_skill_section("Medical AI & Machine Learning", "🤖", skills_data["Medical AI & Machine Learning"])
-        st.markdown('<div style="margin-top: 1rem;"></div>', unsafe_allow_html=True)
-        render_skill_section("Data Science & Engineering", "⚗️", skills_data["Data Science & Engineering"])
-
+        st.image('rid2.png')
     with col2:
-        render_skill_section("Production & Deployment", "🏗️", skills_data["Production & Deployment"])
-        st.markdown('<div style="margin-top: 1rem;"></div>', unsafe_allow_html=True)
-        render_skill_section("Frontend & Visualization", "🎨", skills_data["Frontend & Visualization"])
+        st.title("Dr. Ridwan Oladipo")
+        st.write("Medical Doctor | Data Scientist | Innovator")
+        st.write("📧 [dr.ridwan.oladipo@gmail.com](mailto:dr.ridwan.oladipo@gmail.com)")
+        st.write("🔗 [LinkedIn](Your_LinkedIn_URL)")
+        st.write("🐙 [GitHub](https://github.com/dr-ridwanoladipo)")
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    # ========== PROFESSIONAL IMPACT ==========
-    render_section_header(
-        "📊 Professional Impact",
-        "Quantified achievements in medical education, clinical practice, and AI development"
-    )
+    # About Me
+    st.header("🧑‍⚕️ About Me")
+    st.write("""
+    A visionary medical professional with a passion for leveraging technology to revolutionize healthcare. 
+    Bridging the worlds of medicine and data science to pioneer innovative solutions for global health challenges.
+    """)
 
-    impact_col1, impact_col2, impact_col3 = st.columns(3)
+    # Education
+    st.subheader("🎓 Education")
+    st.write("- MB.ChB, Obafemi Awolowo University, Nigeria (2024)")
+    st.write("- Consistently ranked among the top students in my graduating class.")
 
-    with impact_col1:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🎓 Educational Leadership")
-        st.markdown("""
-        - Founded **Distinction Group** reaching 6+ universities
-        - Trained **5,000+ students** in high-income skills
-        - **Best Teacher** awards at multiple centers
-        - Alumni now lead student associations on LinkedIn
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # Skills
+    st.subheader("🛠️ Tech Stack")
+    tech_stack = [
+        ("🐍", "Python"),
+        ("📊", "Data Science"),
+        ("🤖", "AI / Machine Learning"),
+        ("🌐", "Flask / Django"),
+        ("💾", "SQL (PostgreSQL, MySQL, SQLite)"),
+        ("🗣️", "Natural Language Processing (NLP)"),
+        ("🔥", "PyTorch"),
+        ("👁️", "Computer Vision"),
+        ("💻", "HTML / CSS / JavaScript")
+    ]
 
-    with impact_col2:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🏥 Clinical Excellence")
-        st.markdown("""
-        - **Top scorer** in clinical medicine examination
-        - **10/12 excellent grades** in medical school
-        - **2023 M.B.Ch.B** graduate with distinction
-        - Strong foundation in patient care and diagnostics
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("<div class='tech-stack'>", unsafe_allow_html=True)
+    for emoji, tech in tech_stack:
+        st.markdown(f"<div class='tech-item'><span class='emoji'>{emoji}</span>{tech}</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    with impact_col3:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🚀 AI System Performance")
-        st.markdown("""
-        - **97% sensitivity** in heart disease detection
-        - **<200ms** API response times
-        - **99.9% uptime** production systems
-        - Clinical-grade accuracy with explainable AI
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # Projects
+    st.header("🚀 Featured Projects")
+    st.markdown("""
+    <div class='desktop-view-message'>
+        <strong>📌 Note:</strong> While these projects are responsive, a desktop view is recommended for the best experience with live demos.
+    </div>
+    """, unsafe_allow_html=True)
 
-    # ========== VALUE PROPOSITION ==========
-    render_section_header(
-        "💼 Professional Value Proposition",
-        "Unique competitive advantages and target opportunities"
-    )
+    projects = [
+        {
+            "name": "WeatherPro",
+            "description": "Advanced weather forecast application using Streamlit. Implements complex data visualization techniques and API integration for real-time weather data analysis.",
+            "github": "https://github.com/dr-ridwanoladipo/WeatherPro",
+            "website": "https://weatherpro-by-drridwan.streamlit.app"
+        },
+        {
+            "name": "Film_Oracle",
+            "description": "Sophisticated movie recommendation system leveraging collaborative filtering and content-based algorithms. Demonstrates proficiency in data processing and machine learning techniques.",
+            "github": "https://github.com/dr-ridwanoladipo/film-oracle",
+            "website": "https://film-oracle-by-drridwan.streamlit.app"
+        },
+        {
+            "name": "NLP BookMiner",
+            "description": "Cutting-edge NLP tool for in-depth text analysis. Utilizes advanced natural language processing techniques including sentiment analysis, named entity recognition, and text summarization.",
+            "github": "https://github.com/dr-ridwanoladipo/NLP-BookMiner",
+            "website": "https://nlp-bookminer-by-drridwan.streamlit.app"
+        },
+        {
+            "name": "EduTrack QT Suite",
+            "description": "Comprehensive education management system showcasing database design, user authentication, and dynamic reporting capabilities. Demonstrates full-stack development skills.",
+            "github": "https://github.com/dr-ridwanoladipo/edutrack-qt-suite",
+            "website": "https://edutrack-qt-by-drridwan.streamlit.app"
+        },
+        {
+            "name": "SecurePassVault",
+            "description": "Robust password management application implementing advanced cryptographic techniques. Utilizes Fernet symmetric encryption and secure hashing algorithms (SHA-256) for top-tier data protection.",
+            "github": "https://github.com/dr-ridwanoladipo/SecurePassVault",
+            "website": "https://securevaults-by-drridwan.streamlit.app"
+        }
+    ]
 
-    val_col1, val_col2 = st.columns(2)
+    for project in projects:
+        st.markdown(f"""
+        <details class="custom-expander">
+            <summary>{project['name']}</summary>
+            <div class="content">
+                <p>{project['description']}</p>
+                <p><a href="{project['github']}">GitHub</a> | <a href="{project['website']}">Live Demo</a></p>
+            </div>
+        </details>
+        """, unsafe_allow_html=True)
 
-    with val_col1:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🎯 Unique Competitive Advantage")
-        st.markdown("""
-        **Medical Domain Expertise:** Recently graduated MD with clinical training and deep healthcare systems knowledge.
+    # Additional projects
+    st.subheader("🔍 More Projects")
+    st.write(
+        "Click on the project names below to explore more of my work on GitHub. Each repository contains detailed project descriptions and documentation in the README.md files.")
 
-        **Production ML Engineering:** End-to-end system development, deployment, and monitoring capabilities.
+    additional_projects = [
+        "web-scraper-gig-alert", "django-dynamic-jobportal", "django-culinary-canvas",
+        "SmartForm-flask", "python-oop-hotel-system", "ai-powered-pyqt-chatbot",
+        "smart-home-security", "flask-weather-dashboard", "DailyDigestBot",
+        "automated-invoice-pdf-generator", "automated-pdf-generator", "todo-app"
+    ]
 
-        **Healthcare AI Specialization:** HIPAA-compliant, clinically-validated solutions with explainable AI.
+    for project in additional_projects:
+        st.write(f"- [{project}](https://github.com/dr-ridwanoladipo/{project})")
 
-        **Cross-functional Leadership:** Proven ability to bridge medical teams and engineering organizations.
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # HTML/CSS Projects
+    st.subheader("🎨 Web Design Projects")
+    html_css_projects = [
+        {
+            "name": "Ecoventure",
+            "description": "Modern, responsive website for an eco-tourism company showcasing advanced CSS techniques.",
+            "github": "https://github.com/dr-ridwanoladipo/Ecoventure",
+            "website": "https://ecoventure-by-drridwan.netlify.app"
+        },
+        {
+            "name": "Estateology",
+            "description": "Sleek real estate website demonstrating proficiency in responsive design and modern CSS frameworks.",
+            "github": "https://github.com/dr-ridwanoladipo/Estateology",
+            "website": "https://estateology-by-drridwan.netlify.app"
+        }
+    ]
 
-    with val_col2:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🚀 Target Opportunities")
-        st.markdown("""
-        Seeking roles with **world-class healthcare organizations** and **innovative medical AI companies**:
+    for project in html_css_projects:
+        st.markdown(f"""
+        <details class="custom-expander">
+            <summary>{project['name']}</summary>
+            <div class="content">
+                <p>{project['description']}</p>
+                <p><a href="{project['github']}">GitHub</a> | <a href="{project['website']}">Live Demo</a></p>
+            </div>
+        </details>
+        """, unsafe_allow_html=True)
 
-        • Senior Medical Data Scientist  
-        • Clinical AI Engineer  
-        • Healthcare ML Lead  
-        • Medical AI Product Manager  
-        • Clinical Decision Support Developer  
-        • Healthcare Innovation Specialist
+    # Certifications
+    st.header("🏆 Certifications")
+    certifications = [
+        "CS50 by Harvard University",
+        "Complete A.I. & Machine Learning, Data Science Bootcamp (Andrei Neagoie, Daniel Bourke)",
+        "100 Days of Code: The Complete Python Pro Bootcamp (Angela Yu)",
+        "Python Mega Course: Learn Python in 60 days (Ardit Sulce)"
+    ]
+    for cert in certifications:
+        st.write(f"- {cert}")
 
-        **Open to:** Remote, Hybrid, or Relocation
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # Career Aspirations
+    st.header("🎯 Career Aspirations")
+    st.write("""
+    - Pioneering the field of medical data science, with a focus on solving critical healthcare problems through AI and ML.
+    - Developing a world-class, AI-driven medical education platform to support aspiring and current medical students globally.
+    """)
 
-    # ========== ADDITIONAL PROJECTS (Expandable) ==========
-    with st.expander("📚 Additional Technical Projects", expanded=False):
-        additional_projects = [
-            {
-                "title": "🎬 Film Oracle",
-                "desc": "Advanced recommendation system with collaborative filtering",
-                "github": "https://github.com/dr-ridwanoladipo/film-oracle",
-                "demo": "https://film-oracle-by-drridwan.streamlit.app"
-            },
-            {
-                "title": "📖 NLP BookMiner",
-                "desc": "NLP toolkit with sentiment analysis and entity recognition",
-                "github": "https://github.com/dr-ridwanoladipo/NLP-BookMiner",
-                "demo": "https://nlp-bookminer-by-drridwan.streamlit.app"
-            },
-            {
-                "title": "🌦️ WeatherPro",
-                "desc": "Real-time weather forecast with API integration",
-                "github": "https://github.com/dr-ridwanoladipo/WeatherPro",
-                "demo": "https://weatherpro-by-drridwan.streamlit.app"
-            },
-            {
-                "title": "🔐 SecurePassVault",
-                "desc": "Password manager with Fernet encryption",
-                "github": "https://github.com/dr-ridwanoladipo/SecurePassVault",
-                "demo": "https://securevaults-by-drridwan.streamlit.app"
-            }
-        ]
+    # Contact Form
+    st.header("📩 Contact Me")
+    with st.form(key="email_forms"):
+        user_email = st.text_input("Your email address")
+        raw_message = st.text_area("Your message")
+        message = f"""\
+Subject: New email from {user_email}
 
-        for project in additional_projects:
-            with st.container():
-                st.markdown(f"#### {project['title']}")
-                st.write(project['desc'])
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.link_button("GitHub", project['github'], use_container_width=True)
-                with col2:
-                    st.link_button("Demo", project['demo'], use_container_width=True)
-
-    # ========== CERTIFICATIONS (Expandable) ==========
-    with st.expander("🏆 Professional Certifications & Training", expanded=False):
-        certifications = [
-            "🏛️ **Harvard CS50** - Introduction to Computer Science",
-            "🤖 **Complete AI & ML Bootcamp** - Andrei Neagoie, Daniel Bourke",
-            "🐍 **100 Days of Code: Python** - Angela Yu",
-            "🚀 **FastAPI Complete Course** - Eric Roby, Chad Darby",
-            "🏥 **Deep Learning for Medical Image Analysis** - PyTorch specialization",
-            "🤖 **Generative AI with Langchain** - Krish Naik"
-        ]
-
-        for cert in certifications:
-            st.markdown(f"- {cert}")
-
-        st.info("🎯 Currently preparing for **AWS Machine Learning Specialty Certification**")
-
-    # ========== CONTACT SECTION ==========
-    render_section_header(
-        "🤝 Let's Build the Future of Healthcare AI",
-        "Ready to revolutionize healthcare through AI? Let's connect and discuss how we can "
-        "transform patient care through intelligent, compassionate technology solutions."
-    )
-
-    # Contact columns
-    contact_col1, contact_col2 = st.columns([1, 1])
-
-    with contact_col1:
-        render_contact_form()
-
-    with contact_col2:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🌐 Connect Directly")
-
-        st.info("🎯 **Open to Senior Medical AI Roles**")
-
-        st.markdown('''
-        <div style="margin-top: 1rem;">
-            <a href="mailto:dr.ridwan.oladipo@gmail.com" class="contact-button" style="display: block; text-align: center; margin-bottom: 1rem;">
-                📧 dr.ridwan.oladipo@gmail.com
-            </a>
-            <a href="https://linkedin.com/in/drridwanoladipoai" class="contact-button" target="_blank" style="display: block; text-align: center; margin-bottom: 1rem;">
-                💼 LinkedIn Profile
-            </a>
-            <a href="https://github.com/dr-ridwanoladipo" class="contact-button" target="_blank" style="display: block; text-align: center; margin-bottom: 1rem;">
-                🔗 GitHub Portfolio
-            </a>
-            <a href="https://cardio.mednexai.com" class="contact-button" target="_blank" style="display: block; text-align: center;">
-                🩺 Live Medical AI Demo
-            </a>
-        </div>
-        ''', unsafe_allow_html=True)
-
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    # ========== FOOTER ==========
-    render_footer()
+From: {user_email}
+{raw_message}
+"""
+        button = st.form_submit_button("Submit")
+        if button:
+            send_email(message)
+            st.success("Your message was sent successfully!")
 
 
-# ===============================
-# ENTRY POINT
-# ===============================
 if __name__ == "__main__":
     main()
