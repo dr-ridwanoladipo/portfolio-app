@@ -12,396 +12,183 @@ from io import BytesIO
 from typing import Dict, List, Any
 
 
-def load_custom_css():
-    """Load comprehensive CSS styling with medical-grade aesthetics."""
-    st.markdown("""
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+def load_custom_css() -> None:
+    """Inject complete portfolio CSS (spacing, hero, cards, grids, etc.)."""
+    st.markdown(
+        """
+        <style>
+        /* ---------- GOOGLE FONT ---------- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-        /* Global Reset and Variables */
-        :root {
-            --primary-blue: #1e3c72;
-            --secondary-blue: #2a5298;
-            --accent-red: #ef4444;
-            --success-green: #10b981;
-            --warning-amber: #f59e0b;
-            --dark-gray: #1f2937;
-            --light-gray: #f3f4f6;
-            --white: #ffffff;
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        /* ---------- CSS VARIABLES ---------- */
+        :root{
+            --primary-blue:#1e3c72;--secondary-blue:#2a5298;--accent-red:#ef4444;
+            --success-green:#10b981;--warning-amber:#f59e0b;--dark-gray:#1f2937;
         }
 
-        /* Main App Container */
-        .main {
-            padding: 0 !important;
-            max-width: 100% !important;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        /* ---------- GLOBAL LAYOUT ---------- */
+        div[data-testid="stAppViewContainer"] > main{
+            padding:1.5rem 3rem;                   /* side padding for everything … */
+            font-family:'Inter',sans-serif;
+            background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);   /* ← subtle bg restored */
         }
+        /* ---------- HERO SECTION ---------- */
+        .hero-container{background:linear-gradient(135deg,var(--primary-blue),var(--secondary-blue));
+                        color:#fff;padding:3rem 2rem;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.12);}
+        .hero-flex{display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;}
+        @media(min-width:900px){.hero-flex{flex-direction:row;text-align:left;}}
+        .hero-image{width:180px;height:180px;border-radius:50%;border:5px solid #fff;object-fit:cover;
+                    box-shadow:0 6px 20px rgba(0,0,0,.25);}
+        .hero-title{font-size:2.8rem;font-weight:800;margin:0;}
+        .hero-subtitle{font-size:1.6rem;font-weight:600;margin:0;margin-top:0.3rem;}
+        .hero-description{font-size:1.1rem;line-height:1.6;max-width:550px;margin-top:0.8rem;}
+        .badge-container{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+        .hero-badge{background:rgba(255,255,255,.15);padding:0.3rem 1rem;border-radius:20px;font-size:0.8rem;}
 
-        .block-container {
-            padding: 0 !important;
-            max-width: 100% !important;
+        /* ---------- CONTACT BUTTONS ---------- */
+        .contact-container{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;}
+        .contact-button{background:var(--success-green);color:#fff!important;padding:0.65rem 2rem;border-radius:25px;
+                        font-weight:600;box-shadow:0 4px 15px rgba(16,185,129,.3);text-decoration:none;transition:.3s;}
+        .contact-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(16,185,129,.4);}
+
+        /* ---------- SECTION HEADERS ---------- */
+        .section-header{text-align:center;margin-bottom:3rem;}
+        .section-title{font-size:2.5rem;font-weight:700;color:var(--dark-gray);margin:0;position:relative;display:inline-block;}
+        .section-title::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+                              width:80px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--primary-blue),var(--accent-red));}
+        .section-subtitle{font-size:1.05rem;color:#64748b;max-width:800px;margin:0.8rem auto;line-height:1.7;}
+
+        /* ---------- FEATURED GRID ---------- */
+        .featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;}
+
+        /* ---------- PROJECT CARD ---------- */
+        .project-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:2rem;position:relative;
+                      box-shadow:0 6px 24px rgba(0,0,0,.08);transition:.3s;height:100%;}
+        .project-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.12);}
+        .project-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;
+                              background:linear-gradient(90deg,var(--primary-blue),var(--accent-red));}
+        .status-live{background:var(--success-green);color:#fff;padding:0.2rem 0.9rem;border-radius:15px;font-size:0.75rem;}
+        .status-coming{background:var(--warning-amber);color:#fff;padding:0.2rem 0.9rem;border-radius:15px;font-size:0.75rem;}
+
+        /* ---------- METRIC CARD ---------- */
+        .metric-card{background:linear-gradient(135deg,#f8fafc,#e0e7ff);border:1px solid #c7d2fe;
+                     border-radius:15px;padding:1.2rem;text-align:center;}
+        .metric-value{font-size:1.7rem;font-weight:700;color:var(--primary-blue);}
+        .metric-label{font-size:0.85rem;color:#64748b;}
+
+        /* ---------- TECH TAGS ---------- */
+        .tech-container{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;}
+        .tech-tag{background:#e0e7ff;color:var(--primary-blue);padding:0.25rem 0.75rem;border-radius:15px;font-size:0.8rem;}
+
+        /* ---------- TIMELINE ---------- */
+        .timeline-container{position:relative;padding-left:3rem;margin:2rem 0;}
+        .timeline-line{position:absolute;left:1rem;top:0;bottom:0;width:3px;
+                       background:linear-gradient(var(--primary-blue),var(--accent-red));}
+        .timeline-item{position:relative;margin-left:1rem;margin-bottom:2rem;background:#fff;padding:1.3rem;border-radius:15px;
+                       box-shadow:0 4px 18px rgba(0,0,0,.08);}
+        .timeline-dot{position:absolute;left:-2rem;top:1.4rem;width:14px;height:14px;border-radius:50%;
+                      background:var(--accent-red);border:3px solid #fff;box-shadow:0 0 0 3px rgba(239,68,68,.2);}
+
+        /* ---------- SKILL BADGES ---------- */
+        .skill-badge{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:var(--primary-blue);
+                     padding:0.45rem 0.9rem;border-radius:18px;font-size:0.85rem;font-weight:500;
+                     border:1px solid #93c5fd;display:inline-block;margin:0.25rem;transition:.2s;}
+        .skill-badge:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,.2);}
+
+        /* ---------- EXPANDER CARDS ---------- */
+        .expander-card{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:1.25rem;margin-bottom:1rem;}
+
+        /* ---------- FOOTER ---------- */
+        .footer-container{background:var(--dark-gray);color:#fff;padding:3rem 2rem;
+                          border-radius:30px 30px 0 0;text-align:center;margin-top:4rem;}
+
+        /* ---------- CLEAN UP ---------- */
+        #MainMenu, footer, header, .stDeployButton{visibility:hidden;}
+        
+        /* === NEW overrides: make long text span full row === */
+        .hero-description      {max-width:100% !important;text-align:left !important;}
+        .section-subtitle      {max-width:100% !important;text-align:left !important;}
+        .section-header        {text-align:left !important;}
+        
+    
+        /* 1️⃣ breathing room between big headline and subtitle text */
+        .section-header .section-title   {margin-bottom: 1rem;}   /* more gap */
+        .section-header .section-subtitle{margin-top:   0.3rem;}   /* ensures spacing */
+        
+        /* nicer blue background for cards inside expanders */
+        .expander-card{
+            background:linear-gradient(135deg,#e0f2ff 0%, #c7e0ff 100%);
+            border:1px solid #a5cfff;
+            border-radius:15px;
+            padding:1.25rem;
+            margin-bottom:1rem;
         }
-
-        /* Hero Section - Full Width */
-        .hero-container {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-            padding: 4rem 2rem;
-            color: white;
-            text-align: center;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        .hero-image {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            object-fit: cover;
-            margin: 0 auto 2rem;
-            display: block;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            letter-spacing: -1px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            opacity: 0.95;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
-        }
-
-        /* Badge Styles */
-        .badge-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero-badge {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        /* Contact Buttons */
-        .contact-container {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-button {
-            background: var(--success-green);
-            color: white !important;
-            padding: 0.75rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            display: inline-block;
-        }
-
-        .contact-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-            text-decoration: none;
-        }
-
-        /* Section Styling */
-        .section-header {
-            text-align: center;
-            margin: 4rem 0 3rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dark-gray);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-red));
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: #64748b;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        /* Professional Cards */
-        .project-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-red));
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-        }
-
-        /* Status Badges */
-        .status-live {
-            background: var(--success-green);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .status-coming {
-            background: var(--warning-amber);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        /* Metrics */
-        .metric-card {
-            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            border: 1px solid #c7d2fe;
-        }
-
-        .metric-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-label {
-            color: #64748b;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* Tech Tags */
-        .tech-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .tech-tag {
-            background: #e0e7ff;
-            color: var(--primary-blue);
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        /* Timeline */
-        .timeline-container {
-            position: relative;
-            padding-left: 3rem;
-            margin: 2rem 0;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 1rem;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--accent-red) 100%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2rem;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-left: 1rem;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -2.4rem;
-            top: 1.5rem;
-            width: 15px;
-            height: 15px;
-            background: var(--accent-red);
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
-        }
-
-        /* Skills */
-        .skill-badge {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            color: var(--primary-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid #93c5fd;
-            display: inline-block;
-            margin: 0.25rem;
-            transition: all 0.2s ease;
-        }
-
-        .skill-badge:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
-        }
-
-        /* Footer */
-        .footer-container {
-            background: var(--dark-gray);
-            color: white;
-            padding: 3rem 2rem;
-            border-radius: 30px 30px 0 0;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        /* Hide Streamlit Elements */
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        .stDeployButton {display: none;}
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.4rem; }
-            .section-title { font-size: 2rem; }
-        }
-    </style>
-    """, unsafe_allow_html=True)
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
-def render_hero_section():
-    """Render the hero section with image and contact info."""
-    st.markdown('<div class="hero-container">', unsafe_allow_html=True)
+def render_hero_section() -> None:
+    """
+    Full-width banner + mission text + *stylish* pill-badges + contact buttons.
+    Place `rid2.png` (1920×500 banner) in the app root.
+    """
+    import base64, pathlib, textwrap
+    st.markdown('<div class="section-wrapper">', unsafe_allow_html=True)
 
-    # Try to load and display image
-    try:
-        img = Image.open('rid2.png')
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue()).decode()
-        st.markdown(f'<img src="data:image/png;base64,{img_str}" class="hero-image" alt="Dr. Ridwan Oladipo">',
-                    unsafe_allow_html=True)
-    except:
+    # ── 1. Banner image ─────────────────────────────────────────────
+    img_path = pathlib.Path("rid2.png")
+    if img_path.exists():
+        b64 = base64.b64encode(img_path.read_bytes()).decode()
         st.markdown(
-            '<div style="width: 250px; height: 250px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; font-size: 5rem;">🩺</div>',
-            unsafe_allow_html=True)
+            f'<img src="data:image/png;base64,{b64}" '
+            f'style="width:100%;max-width:100%;border-radius:12px;">',
+            unsafe_allow_html=True,
+        )
+    else:
+        st.error("❌  rid2.png not found – place it in the app folder")
 
-    st.markdown('<h1 class="hero-title">Dr. Ridwan Oladipo</h1>', unsafe_allow_html=True)
-    st.markdown('<h2 class="hero-subtitle">Medical AI Specialist</h2>', unsafe_allow_html=True)
-    st.markdown('''
-    <p class="hero-description">
-        Bridging clinical excellence with cutting-edge artificial intelligence to build 
-        production-ready healthcare systems that save lives and enhance patient care.
-    </p>
-    ''', unsafe_allow_html=True)
+    # ── 2. Mission statement ───────────────────────────────────────
+    st.markdown(
+        """
+        <p class="hero-description" style="text-align:center;margin-top:1.7rem;font-size:1.15rem;">
+            Bridging clinical excellence with <strong>cutting-edge AI</strong> to build
+            <strong>production-ready healthcare systems</strong> that save lives
+            and elevate patient care.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    # Badges
-    st.markdown('''
-    <div class="badge-container">
-        <span class="hero-badge">MD • 2023 Graduate</span>
-        <span class="hero-badge">Deep Learning & NLP</span>
-        <span class="hero-badge">MLOps & AWS</span>
-        <span class="hero-badge">Production AI Systems</span>
-    </div>
-    ''', unsafe_allow_html=True)
+    # ── 3. Stylish pill-badges  ────────────────────────────────────
+    st.markdown(
+        """
+        <div class="badge-container">
+            <span class="hero-badge">🎓 MD • 2023 Graduate</span>
+            <span class="hero-badge">🤖 Deep Learning & NLP</span>
+            <span class="hero-badge">🚀 MLOps & AWS</span>
+            <span class="hero-badge">🩺 Production AI Systems</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    # Contact Links
-    st.markdown('''
-    <div class="contact-container">
-        <a href="mailto:dr.ridwan.oladipo@gmail.com" class="contact-button">📧 Contact</a>
-        <a href="https://linkedin.com/in/drridwanoladipoai" class="contact-button" target="_blank">💼 LinkedIn</a>
-        <a href="https://github.com/dr-ridwanoladipo" class="contact-button" target="_blank">🔗 GitHub</a>
-    </div>
-    ''', unsafe_allow_html=True)
+    # ── 4. Contact buttons ─────────────────────────────────────────
+    st.markdown(
+        textwrap.dedent(
+            """
+            <div class="contact-container" style="margin-top:1.8rem;">
+              <a href="mailto:dr.ridwan.oladipo@gmail.com" class="contact-button">📧 Contact</a>
+              <a href="https://linkedin.com/in/drridwanoladipoai" class="contact-button" target="_blank">💼 LinkedIn</a>
+              <a href="https://github.com/dr-ridwanoladipo" class="contact-button" target="_blank">🔗 GitHub</a>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 def render_section_header(title: str, subtitle: str):
@@ -425,14 +212,13 @@ def create_metric_card(value: str, label: str) -> str:
 
 
 def render_project_card(project_data: Dict[str, Any], col):
-    """Render one project card with unique keys where required (only for st.button)."""
-    slug = project_data["title"].lower().replace(" ", "_")   # unique slug for widget keys
+    """Render one project card with better button layout and clear widget keys."""
+    slug = project_data["title"].lower().replace(" ", "_")
 
     with col:
-        # ── Card container ───────────────────────────────────────────
         st.markdown('<div class="project-card">', unsafe_allow_html=True)
 
-        # ── Header (title + status badge) ────────────────────────────
+        # ── header ──────────────────────────────────────────────
         st.markdown(
             f"""
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
@@ -443,31 +229,36 @@ def render_project_card(project_data: Dict[str, Any], col):
             unsafe_allow_html=True,
         )
 
-        # ── Description ──────────────────────────────────────────────
+        # ── description ────────────────────────────────────────
         st.markdown(project_data["description"])
 
-        # ── Metrics grid (2 × N) ─────────────────────────────────────
+        # ── metrics grid (2 × N) ───────────────────────────────
         if project_data.get("metrics"):
             c1, c2 = st.columns(2)
             for i, m in enumerate(project_data["metrics"]):
-                target_col = c1 if i % 2 == 0 else c2
-                with target_col:
+                with (c1 if i % 2 == 0 else c2):
                     st.markdown(create_metric_card(m["value"], m["label"]), unsafe_allow_html=True)
 
-        # ── Tech-stack tags ──────────────────────────────────────────
+        # ── tech tags ───────────────────────────────────────────
         if project_data.get("tech_stack"):
             tags_html = "".join(f'<span class="tech-tag">{t}</span>' for t in project_data["tech_stack"])
             st.markdown(f'<div class="tech-container">{tags_html}</div>', unsafe_allow_html=True)
 
-        # ── Action buttons ───────────────────────────────────────────
-        if project_data.get("demo_url"):
-            st.link_button("🌐 Live Demo", project_data["demo_url"], use_container_width=True)
+        # ── action buttons side-by-side ─────────────────────────
+        demo = project_data.get("demo_url")
+        git  = project_data.get("github_url")
 
-        if project_data.get("github_url"):
-            st.link_button("📝 GitHub", project_data["github_url"], use_container_width=True)
+        if demo or git:
+            b1, b2 = st.columns(2)
+            if demo:
+                with b1:
+                    st.link_button("🌐 Live Demo", demo, use_container_width=True)
+            if git:
+                with b2:
+                    st.link_button("📝 GitHub", git, use_container_width=True)
 
+        # ── coming-soon badge (unique key) ──────────────────────
         if project_data.get("coming_soon"):
-            # st.button requires a unique key; link_button doesn’t accept key
             st.button("🚧 Coming Soon", disabled=True,
                       key=f"{slug}_coming_btn", use_container_width=True)
 
