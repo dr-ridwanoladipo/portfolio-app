@@ -134,26 +134,19 @@ def load_custom_css() -> None:
 
         /* reduce main top/bottom padding */
         div.block-container {
-          padding-top: 1rem !important;
+          padding-top: 0 !important;
           padding-bottom: 0 !important;
           margin-top: 0 !important;
           margin-bottom: 0 !important;
         }
 
-        /* tighten custom footer */
+
         .footer-container {
-          margin-top: 1rem !important;
+          margin: 2rem -3rem 0 -3rem !important; /* top, sides, bottom */
           padding: 1rem 1rem !important;
+          width: calc(100% + 6rem) !important;
           border-radius: 20px 20px 0 0;
         }
-
-        /* spacing inside columns */
-        div[data-testid="column"] > div {
-          margin-bottom: 1.2rem !important;
-        }
-
-
-
 
         </style>
         """,
