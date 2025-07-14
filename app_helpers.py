@@ -104,17 +104,17 @@ def load_custom_css() -> None:
 
         /* ---------- CLEAN UP ---------- */
         #MainMenu, footer, header, .stDeployButton{visibility:hidden;}
-        
+
         /* === NEW overrides: make long text span full row === */
         .hero-description      {max-width:100% !important;text-align:left !important;}
         .section-subtitle      {max-width:100% !important;text-align:left !important;}
         .section-header        {text-align:left !important;}
-        
-    
+
+
         /* 1️⃣ breathing room between big headline and subtitle text */
         .section-header .section-title   {margin-bottom: 1rem;}   /* more gap */
         .section-header .section-subtitle{margin-top:   0.3rem;}   /* ensures spacing */
-        
+
         /* nicer blue background for cards inside expanders */
         .expander-card{
             background:linear-gradient(135deg,#e0f2ff 0%, #c7e0ff 100%);
@@ -123,6 +123,38 @@ def load_custom_css() -> None:
             padding:1.25rem;
             margin-bottom:1rem;
         }
+
+
+
+
+        /* remove built-in header/footer */
+        #MainMenu, header.stAppHeader, footer {
+          visibility: hidden !important;
+        }
+
+        /* reduce main top/bottom padding */
+        div.block-container {
+          padding-top: 1rem !important;
+          padding-bottom: 0 !important;
+          margin-top: 0 !important;
+          margin-bottom: 0 !important;
+        }
+
+        /* tighten custom footer */
+        .footer-container {
+          margin-top: 1rem !important;
+          padding: 1rem 1rem !important;
+          border-radius: 20px 20px 0 0;
+        }
+
+        /* spacing inside columns */
+        div[data-testid="column"] > div {
+          margin-bottom: 1.2rem !important;
+        }
+
+
+
+
         </style>
         """,
         unsafe_allow_html=True,
@@ -246,7 +278,7 @@ def render_project_card(project_data: Dict[str, Any], col):
 
         # ── action buttons side-by-side ─────────────────────────
         demo = project_data.get("demo_url")
-        git  = project_data.get("github_url")
+        git = project_data.get("github_url")
 
         if demo or git:
             b1, b2 = st.columns(2)
