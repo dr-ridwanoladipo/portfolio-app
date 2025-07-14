@@ -124,9 +124,6 @@ def load_custom_css() -> None:
             margin-bottom:1rem;
         }
 
-
-
-
         /* remove built-in header/footer */
         #MainMenu, header.stAppHeader, footer {
           visibility: hidden !important;
@@ -140,12 +137,12 @@ def load_custom_css() -> None:
           margin-bottom: 0 !important;
         }
 
-
+        /* tighten custom footer */
         .footer-container {
-          margin: 2rem -3rem 0 -3rem !important; /* top, sides, bottom */
+          margin-top: 1rem !important;
           padding: 1rem 1rem !important;
-          width: calc(100% + 6rem) !important;
           border-radius: 20px 20px 0 0;
+          width: 100% !important;
         }
 
         </style>
