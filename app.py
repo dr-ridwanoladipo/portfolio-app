@@ -239,18 +239,16 @@ def main():
 
     # ========== CERTIFICATIONS (Expandable) ==========
     with st.expander("🏆 Professional Certifications & Training", expanded=False):
-        certifications = [
-            "🏛️ **Harvard CS50** - Introduction to Computer Science",
-            "🤖 **Complete AI & ML Bootcamp** - Andrei Neagoie, Daniel Bourke",
-            "🐍 **100 Days of Code: Python** - Angela Yu",
-            "🚀 **FastAPI Complete Course** - Eric Roby, Chad Darby",
-            "🏥 **Deep Learning for Medical Image Analysis** - PyTorch specialization",
-            "🤖 **Generative AI with Langchain** - Krish Naik"
-        ]
-
-        for cert in certifications:
-            st.markdown(f"- {cert}")
-
+        st.markdown("""
+        <ul class="certification-list">
+          <li>🏛️ <strong>Harvard CS50</strong> - Introduction to Computer Science</li>
+          <li>🤖 <strong>Complete AI & ML Bootcamp</strong> - Andrei Neagoie, Daniel Bourke</li>
+          <li>🐍 <strong>100 Days of Code: Python</strong> - Angela Yu</li>
+          <li>🚀 <strong>FastAPI Complete Course</strong> - Eric Roby, Chad Darby</li>
+          <li>🏥 <strong>Deep Learning for Medical Image Analysis</strong> - PyTorch specialization</li>
+          <li>🤖 <strong>Generative AI with Langchain</strong> - Krish Naik</li>
+        </ul>
+        """, unsafe_allow_html=True)
         st.info("🎯 Currently preparing for **AWS Machine Learning Specialty Certification**")
 
     st.markdown('<hr class="section-divider">', unsafe_allow_html=True)  # ⬅ divider

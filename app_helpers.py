@@ -12,8 +12,176 @@ from io import BytesIO
 from typing import Dict, List, Any
 
 
+# def load_custom_css() -> None:
+#     """Inject complete portfolio CSS (spacing, hero, cards, grids, etc.)."""
+#     st.markdown(
+#         """
+#         <style>
+#         /* ---------- GOOGLE FONT ---------- */
+#         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+#
+#         /* ---------- CSS VARIABLES ---------- */
+#         :root{
+#             --primary-blue:#1e3c72;--secondary-blue:#2a5298;--accent-red:#ef4444;
+#             --success-green:#10b981;--warning-amber:#f59e0b;--dark-gray:#1f2937;
+#         }
+#
+#         /* ---------- GLOBAL LAYOUT ---------- */
+#         div[data-testid="stAppViewContainer"] > main{
+#             padding:1.5rem 3rem;                   /* side padding for everything … */
+#             font-family:'Inter',sans-serif;
+#             background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);   /* ← subtle bg restored */
+#         }
+#         /* ---------- HERO SECTION ---------- */
+#         .hero-container{background:linear-gradient(135deg,var(--primary-blue),var(--secondary-blue));
+#                         color:#fff;padding:3rem 2rem;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.12);}
+#         .hero-flex{display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;}
+#         @media(min-width:900px){.hero-flex{flex-direction:row;text-align:left;}}
+#         .hero-image{width:180px;height:180px;border-radius:50%;border:5px solid #fff;object-fit:cover;
+#                     box-shadow:0 6px 20px rgba(0,0,0,.25);}
+#         .hero-title{font-size:2.8rem;font-weight:800;margin:0;}
+#         .hero-subtitle{font-size:1.6rem;font-weight:600;margin:0;margin-top:0.3rem;}
+#         .hero-description{font-size:1.1rem;line-height:1.6;max-width:550px;margin-top:0.8rem;}
+#         .badge-container{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+#         .hero-badge{background:rgba(255,255,255,.15);padding:0.3rem 1rem;border-radius:20px;font-size:0.8rem;}
+#
+#         /* ---------- CONTACT BUTTONS ---------- */
+#         .contact-container{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;}
+#         .contact-button{background:var(--success-green);color:#fff!important;padding:0.65rem 2rem;border-radius:25px;
+#                         font-weight:600;box-shadow:0 4px 15px rgba(16,185,129,.3);text-decoration:none;transition:.3s;}
+#         .contact-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(16,185,129,.4);}
+#
+#         /* ---------- SECTION HEADERS ---------- */
+#         .section-header{text-align:center;margin-bottom:3rem;}
+#         .section-title{font-size:2.5rem;font-weight:700;color:var(--dark-gray);margin:0;position:relative;display:inline-block;}
+#         .section-title::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+#                               width:80px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--primary-blue),var(--accent-red));}
+#         .section-subtitle{font-size:1.05rem;color:#64748b;max-width:800px;margin:0.8rem auto;line-height:1.7;}
+#
+#         /* ---------- FEATURED GRID ---------- */
+#         .featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;}
+#
+#         /* ---------- PROJECT CARD ---------- */
+#         .project-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:2rem;position:relative;
+#                       box-shadow:0 6px 24px rgba(0,0,0,.08);transition:.3s;height:100%;}
+#         .project-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.12);}
+#         .project-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;
+#                               background:linear-gradient(90deg,var(--primary-blue),var(--accent-red));}
+#         .status-live{background:var(--success-green);color:#fff;padding:0.2rem 0.9rem;border-radius:15px;font-size:0.75rem;}
+#         .status-coming{background:var(--warning-amber);color:#fff;padding:0.2rem 0.9rem;border-radius:15px;font-size:0.75rem;}
+#
+#         /* ---------- METRIC CARD ---------- */
+#         .metric-card{background:linear-gradient(135deg,#f8fafc,#e0e7ff);border:1px solid #c7d2fe;
+#                      border-radius:15px;padding:1.2rem;text-align:center;}
+#         .metric-value{font-size:1.7rem;font-weight:700;color:var(--primary-blue);}
+#         .metric-label{font-size:0.85rem;color:#64748b;}
+#
+#         /* ---------- TECH TAGS ---------- */
+#         .tech-container{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;}
+#         .tech-tag{background:#e0e7ff;color:var(--primary-blue);padding:0.25rem 0.75rem;border-radius:15px;font-size:0.8rem;}
+#
+#         /* ---------- TIMELINE ---------- */
+#         .timeline-container{position:relative;padding-left:3rem;margin:2rem 0;}
+#         .timeline-line{position:absolute;left:1rem;top:0;bottom:0;width:3px;
+#                        background:linear-gradient(var(--primary-blue),var(--accent-red));}
+#         .timeline-item{position:relative;margin-left:1rem;margin-bottom:2rem;background:#fff;padding:1.3rem;border-radius:15px;
+#                        box-shadow:0 4px 18px rgba(0,0,0,.08);}
+#         .timeline-dot{position:absolute;left:-2rem;top:1.4rem;width:14px;height:14px;border-radius:50%;
+#                       background:var(--accent-red);border:3px solid #fff;box-shadow:0 0 0 3px rgba(239,68,68,.2);}
+#
+#         /* ---------- SKILL BADGES ---------- */
+#         .skill-badge{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:var(--primary-blue);
+#                      padding:0.45rem 0.9rem;border-radius:18px;font-size:0.85rem;font-weight:500;
+#                      border:1px solid #93c5fd;display:inline-block;margin:0.25rem;transition:.2s;}
+#         .skill-badge:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,.2);}
+#
+#         /* ---------- EXPANDER CARDS ---------- */
+#         .expander-card{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:1.25rem;margin-bottom:1rem;}
+#
+#         /* ---------- FOOTER ---------- */
+#         .footer-container{background:var(--dark-gray);color:#fff;padding:3rem 2rem;
+#                           border-radius:30px 30px 0 0;text-align:center;margin-top:4rem;}
+#
+#         /* ---------- CLEAN UP ---------- */
+#         #MainMenu, footer, header, .stDeployButton{visibility:hidden;}
+#
+#         /* === NEW overrides: make long text span full row === */
+#         .hero-description      {max-width:100% !important;text-align:left !important;}
+#         .section-subtitle      {max-width:100% !important;text-align:left !important;}
+#         .section-header        {text-align:left !important;}
+#
+#
+#         /* 1️⃣ breathing room between big headline and subtitle text */
+#         .section-header .section-title   {margin-bottom: 1rem;}   /* more gap */
+#         .section-header .section-subtitle{margin-top:   0.3rem;}   /* ensures spacing */
+#
+#         /* nicer blue background for cards inside expanders */
+#         .expander-card{
+#             background:linear-gradient(135deg,#e0f2ff 0%, #c7e0ff 100%);
+#             border:1px solid #a5cfff;
+#             border-radius:15px;
+#             padding:1.25rem;
+#             margin-bottom:1rem;
+#         }
+#
+#         /* remove built-in header/footer */
+#         #MainMenu, header.stAppHeader, footer {
+#           visibility: hidden !important;
+#         }
+#
+#         /* reduce main top/bottom padding */
+#         div.block-container {
+#           padding-top: 0 !important;
+#           padding-bottom: 0 !important;
+#           margin-top: 0 !important;
+#           margin-bottom: 0 !important;
+#         }
+#
+#         /* tighten custom footer */
+#         .footer-container {
+#           margin-top: 1rem !important;
+#           padding: 1rem 1rem !important;
+#           border-radius: 20px 20px 0 0;
+#           width: 100% !important;
+#         }
+#
+#
+#
+#
+#
+#         .navbar-links {
+#             display: flex;
+#             justify-content: center;
+#             gap: 1.5rem;
+#             margin-top: -0.5rem;
+#             background:var(--dark-gray); /* dark blue background */
+#             padding: 0.5rem 0.5rem;
+#             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+#         }
+#
+#         .navbar-links a {
+#             text-decoration: none;
+#             color: white;
+#             font-weight: 600;
+#             font-size: 1.05rem;
+#             letter-spacing: 0.5px;
+#             transition: all 0.3s ease;
+#         }
+#
+#         .navbar-links a:hover {
+#             color: var(--accent-red);
+#             transform: translateY(-2px);
+#         }
+#
+#
+#
+#         </style>
+#         """,
+#         unsafe_allow_html=True,
+#     )
+
 def load_custom_css() -> None:
-    """Inject complete portfolio CSS (spacing, hero, cards, grids, etc.)."""
+    """Inject complete portfolio CSS with perfectly balanced colors for medical AI."""
     st.markdown(
         """
         <style>
@@ -21,144 +189,62 @@ def load_custom_css() -> None:
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
         /* ---------- CSS VARIABLES ---------- */
-        :root{
-            --primary-blue:#1e3c72;--secondary-blue:#2a5298;--accent-red:#ef4444;
-            --success-green:#10b981;--warning-amber:#f59e0b;--dark-gray:#1f2937;
+        :root {
+            --primary-blue:#1e3c72;
+            --secondary-blue:#2a5298;
+            --accent-teal:#10b981;
+            --light-blue:#e0e7ff;
+            --dark-navy:#1f2937;
         }
 
         /* ---------- GLOBAL LAYOUT ---------- */
-        div[data-testid="stAppViewContainer"] > main{
-            padding:1.5rem 3rem;                   /* side padding for everything … */
+        div[data-testid="stAppViewContainer"] > main {
+            padding:1.5rem 3rem;
             font-family:'Inter',sans-serif;
-            background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);   /* ← subtle bg restored */
+            background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);
         }
+
         /* ---------- HERO SECTION ---------- */
-        .hero-container{background:linear-gradient(135deg,var(--primary-blue),var(--secondary-blue));
-                        color:#fff;padding:3rem 2rem;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.12);}
-        .hero-flex{display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;}
-        @media(min-width:900px){.hero-flex{flex-direction:row;text-align:left;}}
-        .hero-image{width:180px;height:180px;border-radius:50%;border:5px solid #fff;object-fit:cover;
-                    box-shadow:0 6px 20px rgba(0,0,0,.25);}
-        .hero-title{font-size:2.8rem;font-weight:800;margin:0;}
-        .hero-subtitle{font-size:1.6rem;font-weight:600;margin:0;margin-top:0.3rem;}
-        .hero-description{font-size:1.1rem;line-height:1.6;max-width:550px;margin-top:0.8rem;}
-        .badge-container{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
-        .hero-badge{background:rgba(255,255,255,.15);padding:0.3rem 1rem;border-radius:20px;font-size:0.8rem;}
-
-        /* ---------- CONTACT BUTTONS ---------- */
-        .contact-container{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;}
-        .contact-button{background:var(--success-green);color:#fff!important;padding:0.65rem 2rem;border-radius:25px;
-                        font-weight:600;box-shadow:0 4px 15px rgba(16,185,129,.3);text-decoration:none;transition:.3s;}
-        .contact-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(16,185,129,.4);}
-
-        /* ---------- SECTION HEADERS ---------- */
-        .section-header{text-align:center;margin-bottom:3rem;}
-        .section-title{font-size:2.5rem;font-weight:700;color:var(--dark-gray);margin:0;position:relative;display:inline-block;}
-        .section-title::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
-                              width:80px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--primary-blue),var(--accent-red));}
-        .section-subtitle{font-size:1.05rem;color:#64748b;max-width:800px;margin:0.8rem auto;line-height:1.7;}
-
-        /* ---------- FEATURED GRID ---------- */
-        .featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;}
-
-        /* ---------- PROJECT CARD ---------- */
-        .project-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:2rem;position:relative;
-                      box-shadow:0 6px 24px rgba(0,0,0,.08);transition:.3s;height:100%;}
-        .project-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.12);}
-        .project-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;
-                              background:linear-gradient(90deg,var(--primary-blue),var(--accent-red));}
-        .status-live{background:var(--success-green);color:#fff;padding:0.2rem 0.9rem;border-radius:15px;font-size:0.75rem;}
-        .status-coming{background:var(--warning-amber);color:#fff;padding:0.2rem 0.9rem;border-radius:15px;font-size:0.75rem;}
-
-        /* ---------- METRIC CARD ---------- */
-        .metric-card{background:linear-gradient(135deg,#f8fafc,#e0e7ff);border:1px solid #c7d2fe;
-                     border-radius:15px;padding:1.2rem;text-align:center;}
-        .metric-value{font-size:1.7rem;font-weight:700;color:var(--primary-blue);}
-        .metric-label{font-size:0.85rem;color:#64748b;}
-
-        /* ---------- TECH TAGS ---------- */
-        .tech-container{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;}
-        .tech-tag{background:#e0e7ff;color:var(--primary-blue);padding:0.25rem 0.75rem;border-radius:15px;font-size:0.8rem;}
-
-        /* ---------- TIMELINE ---------- */
-        .timeline-container{position:relative;padding-left:3rem;margin:2rem 0;}
-        .timeline-line{position:absolute;left:1rem;top:0;bottom:0;width:3px;
-                       background:linear-gradient(var(--primary-blue),var(--accent-red));}
-        .timeline-item{position:relative;margin-left:1rem;margin-bottom:2rem;background:#fff;padding:1.3rem;border-radius:15px;
-                       box-shadow:0 4px 18px rgba(0,0,0,.08);}
-        .timeline-dot{position:absolute;left:-2rem;top:1.4rem;width:14px;height:14px;border-radius:50%;
-                      background:var(--accent-red);border:3px solid #fff;box-shadow:0 0 0 3px rgba(239,68,68,.2);}
-
-        /* ---------- SKILL BADGES ---------- */
-        .skill-badge{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:var(--primary-blue);
-                     padding:0.45rem 0.9rem;border-radius:18px;font-size:0.85rem;font-weight:500;
-                     border:1px solid #93c5fd;display:inline-block;margin:0.25rem;transition:.2s;}
-        .skill-badge:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,.2);}
-
-        /* ---------- EXPANDER CARDS ---------- */
-        .expander-card{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:1.25rem;margin-bottom:1rem;}
-
-        /* ---------- FOOTER ---------- */
-        .footer-container{background:var(--dark-gray);color:#fff;padding:3rem 2rem;
-                          border-radius:30px 30px 0 0;text-align:center;margin-top:4rem;}
-
-        /* ---------- CLEAN UP ---------- */
-        #MainMenu, footer, header, .stDeployButton{visibility:hidden;}
-
-        /* === NEW overrides: make long text span full row === */
-        .hero-description      {max-width:100% !important;text-align:left !important;}
-        .section-subtitle      {max-width:100% !important;text-align:left !important;}
-        .section-header        {text-align:left !important;}
-
-
-        /* 1️⃣ breathing room between big headline and subtitle text */
-        .section-header .section-title   {margin-bottom: 1rem;}   /* more gap */
-        .section-header .section-subtitle{margin-top:   0.3rem;}   /* ensures spacing */
-
-        /* nicer blue background for cards inside expanders */
-        .expander-card{
-            background:linear-gradient(135deg,#e0f2ff 0%, #c7e0ff 100%);
-            border:1px solid #a5cfff;
-            border-radius:15px;
-            padding:1.25rem;
-            margin-bottom:1rem;
+        .hero-container {
+            background:linear-gradient(135deg,var(--primary-blue),var(--secondary-blue));
+            color:#fff;
+            padding:3rem 2rem;
+            border-radius:12px;
+            box-shadow:0 10px 40px rgba(0,0,0,.12);
         }
 
-        /* remove built-in header/footer */
-        #MainMenu, header.stAppHeader, footer {
-          visibility: hidden !important;
+        .hero-flex {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:1.5rem;
+            text-align:center;
+        }
+        @media(min-width:900px){
+            .hero-flex{flex-direction:row;text-align:left;}
         }
 
-        /* reduce main top/bottom padding */
-        div.block-container {
-          padding-top: 0 !important;
-          padding-bottom: 0 !important;
-          margin-top: 0 !important;
-          margin-bottom: 0 !important;
+        .hero-image {
+            width:180px;height:180px;border-radius:50%;border:5px solid #fff;
+            object-fit:cover; box-shadow:0 6px 20px rgba(0,0,0,.25);
         }
 
-        /* tighten custom footer */
-        .footer-container {
-          margin-top: 1rem !important;
-          padding: 1rem 1rem !important;
-          border-radius: 20px 20px 0 0;
-          width: 100% !important;
-        }
+        .hero-title {font-size:2.8rem;font-weight:800;margin:0;}
+        .hero-subtitle {font-size:1.6rem;font-weight:600;margin:0;margin-top:0.3rem;}
+        .hero-description {font-size:1.1rem;line-height:1.6;max-width:550px;margin-top:0.8rem;}
+        .badge-container {display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+        .hero-badge {background:rgba(255,255,255,.15);padding:0.3rem 1rem;border-radius:20px;font-size:0.8rem;}
 
-
-
-
-
+        /* ---------- NAVBAR LINKS ---------- */
         .navbar-links {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
-            margin-top: 2rem;
-            background: var(--primary-blue); /* dark blue background */
-            padding: 1rem 2rem;
+            margin-top: -0.5rem;
+            background: var(--dark-navy);
+            padding: 0.5rem 0.5rem;
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
-
         .navbar-links a {
             text-decoration: none;
             color: white;
@@ -167,17 +253,191 @@ def load_custom_css() -> None:
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
         }
-
         .navbar-links a:hover {
-            color: var(--accent-red);
+            color: var(--accent-teal);
             transform: translateY(-2px);
+        }
+
+        /* ---------- SECTION HEADERS ---------- */
+        .section-header{text-align:center;margin-bottom:3rem;}
+        .section-title {
+            font-size:2.5rem;font-weight:700;color:var(--dark-navy);
+            margin:0;position:relative;display:inline-block;
+        }
+        .section-title::after {
+            content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+            width:80px;height:4px;border-radius:2px;
+            background:linear-gradient(90deg,var(--primary-blue),var(--accent-teal));
+        }
+        .section-subtitle {
+            font-size:1.05rem;color:#64748b;max-width:800px;margin:0.8rem auto;line-height:1.7;
+        }
+
+        /* ---------- FEATURED GRID ---------- */
+        .featured-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;}
+
+        /* ---------- PROJECT & METRIC CARDS ---------- */
+        .project-card {
+            background: var(--light-blue);
+            border:1px solid #c7d2fe;
+            border-radius:20px;
+            padding:2rem;
+            position:relative;
+            box-shadow:0 6px 24px rgba(0,0,0,.08);
+            transition:.3s;height:100%;
+        }
+        .project-card:hover {
+            transform:translateY(-5px);
+            box-shadow:0 12px 40px rgba(0,0,0,.12);
+        }
+        .project-card::before {
+            content:'';position:absolute;top:0;left:0;width:100%;height:5px;
+            background:linear-gradient(90deg,var(--primary-blue),var(--accent-teal));
+        }
+
+        .metric-card {
+            background:linear-gradient(135deg,#f8fafc,#e0e7ff);
+            border:1px solid #c7d2fe;
+            border-radius:15px;
+            padding:1.2rem;text-align:center;
+        }
+
+        /* ---------- STATUS BADGES ---------- */
+        .status-live {
+            background:var(--accent-teal);color:#fff;
+            padding:0.2rem 0.9rem;border-radius:15px;font-size:0.75rem;
+        }
+        .status-coming {
+            background:#f59e0b;color:#fff;
+            padding:0.2rem 0.9rem;border-radius:15px;font-size:0.75rem;
+        }
+
+        /* ---------- TECH TAGS ---------- */
+        .tech-container {display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;}
+        .tech-tag {background:#e0e7ff;color:var(--primary-blue);
+            padding:0.25rem 0.75rem;border-radius:15px;font-size:0.8rem;}
+
+        /* ---------- TIMELINE ---------- */
+        .timeline-container {position:relative;padding-left:3rem;margin:2rem 0;}
+        .timeline-line {
+            position:absolute;left:1rem;top:0;bottom:0;width:3px;
+            background:linear-gradient(var(--primary-blue),var(--accent-teal));
+        }
+        .timeline-item {
+            position:relative;margin-left:1rem;margin-bottom:2rem;background:#fff;
+            padding:1.3rem;border-radius:15px;
+            box-shadow:0 4px 18px rgba(0,0,0,.08);
+        }
+        .timeline-dot {
+            position:absolute;left:-2rem;top:1.4rem;width:14px;height:14px;border-radius:50%;
+            background:var(--accent-teal);border:3px solid #fff;
+            box-shadow:0 0 0 3px rgba(16,185,129,.2);
+        }
+
+        /* ---------- SKILL BADGES ---------- */
+        .skill-badge {
+            background:linear-gradient(135deg,#dbeafe,#bfdbfe);
+            color:var(--primary-blue);
+            padding:0.45rem 0.9rem;border-radius:18px;font-size:0.85rem;font-weight:500;
+            border:1px solid #93c5fd;display:inline-block;margin:0.25rem;transition:.2s;
+        }
+        .skill-badge:hover {
+            transform:translateY(-2px);
+            box-shadow:0 4px 12px rgba(16,185,129,.2);
+        }
+
+        /* ---------- EXPANDER CARDS ---------- */
+        .expander-card {
+            background:linear-gradient(135deg,#e0f2ff 0%, #c7e0ff 100%);
+            border:1px solid #a5cfff;
+            border-radius:15px;
+            padding:1.25rem;
+            margin-bottom:1rem;
+        }
+
+        /* ---------- FOOTER ---------- */
+        .footer-container {
+            background: var(--dark-navy);
+            color:#fff;
+            margin-top:1rem !important;
+            padding:1rem 1rem !important;
+            border-radius:20px 20px 0 0;
+            width:100% !important;
+            text-align:center;
+        }
+        
+        /* _________CONTACT BUTTON _____________*/
+        .contact-button {
+            background: var(--accent-teal);
+            color: #fff !important;
+            padding: 0.65rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(16,185,129,.3);
+            text-decoration: none !important;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16,185,129,.4);
         }
 
 
 
+        /* EXPANDERS HEADER */
+        details > summary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            transition: all 0.3s ease;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
 
+        ul.certification-list {
+            background: linear-gradient(135deg, #e0f2ff 0%, #c7e0ff 100%);
+            border: 2px solid var(--accent-teal);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            margin-top: 0.5rem;
+            list-style: none;
+        }
+        ul.certification-list li {
+            background: var(--light-blue);
+            border-left: 4px solid var(--accent-teal);
+            padding: 0.5rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
 
+        /* ---------- CLEAN UP ---------- */
+        #MainMenu, footer, header, .stDeployButton {visibility:hidden;}
+        div.block-container {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+        .hero-description {max-width:100% !important;text-align:left !important;}
+        .section-subtitle {max-width:100% !important;text-align:left !important;}
+        .section-header {text-align:left !important;}
+        .section-header .section-title {margin-bottom:1rem;}
+        .section-header .section-subtitle {margin-top:0.3rem;}
         </style>
         """,
         unsafe_allow_html=True,
@@ -186,8 +446,9 @@ def load_custom_css() -> None:
 
 def render_hero_section() -> None:
     """
-    Full-width banner + short mission text + stylish badges,
-    then horizontal contact navbar at the end.
+    Full-width banner + horizontal contact bar immediately after hero image,
+    followed by mission text + stylish badges.
+    Place `rid2.png` (1920×500 banner) in the app root.
     """
     import base64, pathlib, textwrap
     st.markdown('<div class="section-wrapper">', unsafe_allow_html=True)
@@ -204,7 +465,21 @@ def render_hero_section() -> None:
     else:
         st.error("❌  rid2.png not found – place it in the app folder")
 
-    # ── 2. Short mission statement ─────────────────────────────────
+    # ── 2. Contact bar immediately after hero image ────────────────
+    st.markdown(
+        textwrap.dedent(
+            """
+            <div class="navbar-links">
+                <a href="mailto:dr.ridwan.oladipo@gmail.com">📧 Contact</a>
+                <a href="https://linkedin.com/in/drridwanoladipoai" target="_blank">💼 LinkedIn</a>
+                <a href="https://github.com/dr-ridwanoladipo" target="_blank">🔗 GitHub</a>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
+
+    # ── 3. Mission statement ──────────────────────────────────────
     st.markdown(
         """
         <p class="hero-description" style="text-align:center;margin-top:1.7rem;font-size:1.15rem;">
@@ -216,7 +491,7 @@ def render_hero_section() -> None:
         unsafe_allow_html=True,
     )
 
-    # ── 3. Stylish skill badges ────────────────────────────────────
+    # ── 4. Stylish pill-badges  ───────────────────────────────────
     st.markdown(
         """
         <div class="badge-container">
@@ -226,20 +501,6 @@ def render_hero_section() -> None:
             <span class="hero-badge">🩺 Production AI Systems</span>
         </div>
         """,
-        unsafe_allow_html=True,
-    )
-
-    # ── 4. Contact navbar immediately after badges ─────────────────
-    st.markdown(
-        textwrap.dedent(
-            """
-            <div class="navbar-links" style="margin-top:2rem;">
-                <a href="mailto:dr.ridwan.oladipo@gmail.com">📧 Contact</a>
-                <a href="https://linkedin.com/in/drridwanoladipoai" target="_blank">💼 LinkedIn</a>
-                <a href="https://github.com/dr-ridwanoladipo" target="_blank">🔗 GitHub</a>
-            </div>
-            """
-        ),
         unsafe_allow_html=True,
     )
 
@@ -301,7 +562,7 @@ def render_project_card(project_data: Dict[str, Any], col):
 
         # ── action buttons side-by-side ─────────────────────────
         demo = project_data.get("demo_url")
-        git = project_data.get("github_url")
+        git  = project_data.get("github_url")
 
         if demo or git:
             b1, b2 = st.columns(2)
@@ -399,7 +660,7 @@ def get_featured_projects():
         {
             "icon": "🩺",
             "title": "Clinical Heart Disease AI",
-            "status": "Live Production",
+            "status": "Live",
             "status_class": "status-live",
             "description": "**97% sensitivity** cardiovascular risk assessment with SHAP explainability. AWS ECS Fargate deployment.",
             "metrics": [
