@@ -30,7 +30,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-
 # ===============================
 # MAIN APPLICATION
 # ===============================
@@ -53,6 +52,8 @@ def main():
         "My unique combination of medical domain knowledge and advanced technical skills positions me to build "
         "clinically-validated, explainable AI solutions for real-world healthcare challenges."
     )
+
+    st.markdown('<hr class="section-divider">', unsafe_allow_html=True)  # ⬅ divider
 
     # ========== FEATURED PROJECTS ==========
     render_section_header(
@@ -164,11 +165,11 @@ def main():
         st.markdown("### 🎯 Unique Competitive Advantage")
         st.markdown("""
         **Medical Domain Expertise:** Recently graduated MD with clinical training and deep healthcare systems knowledge.
-
+        
         **Production ML Engineering:** End-to-end system development, deployment, and monitoring capabilities.
-
+        
         **Healthcare AI Specialization:** HIPAA-compliant, clinically-validated solutions with explainable AI.
-
+        
         **Cross-functional Leadership:** Proven ability to bridge medical teams and engineering organizations.
         """)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -178,14 +179,14 @@ def main():
         st.markdown("### 🚀 Target Opportunities")
         st.markdown("""
         Seeking roles with **world-class healthcare organizations** and **innovative medical AI companies**:
-
+        
         • Senior Medical Data Scientist  
         • Clinical AI Engineer  
         • Healthcare ML Lead  
         • Medical AI Product Manager  
         • Clinical Decision Support Developer  
         • Healthcare Innovation Specialist
-
+        
         **Open to:** Remote, Hybrid, or Relocation
         """)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -220,16 +221,6 @@ def main():
                 "demo": "https://securevaults-by-drridwan.streamlit.app"
             }
         ]
-
-        # for project in additional_projects:
-        #     with st.container():
-        #         st.markdown(f"#### {project['title']}")
-        #         st.write(project['desc'])
-        #         col1, col2 = st.columns(2)
-        #         with col1:
-        #             st.link_button("GitHub", project['github'], use_container_width=True)
-        #         with col2:
-        #             st.link_button("Demo", project['demo'], use_container_width=True)
 
         for p in additional_projects:
             st.markdown('<div class="expander-card">', unsafe_allow_html=True)
@@ -302,6 +293,7 @@ def main():
 
         st.markdown('</div>', unsafe_allow_html=True)
 
+    st.markdown('<hr class="section-divider">', unsafe_allow_html=True)  # ⬅ divider
     # ========== FOOTER ==========
     render_footer()
 
