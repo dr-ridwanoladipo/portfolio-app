@@ -145,6 +145,39 @@ def load_custom_css() -> None:
           width: 100% !important;
         }
 
+
+
+
+
+        .navbar-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            background: var(--primary-blue); /* dark blue background */
+            padding: 1rem 2rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: var(--accent-red);
+            transform: translateY(-2px);
+        }
+
+
+
+
+
+
         </style>
         """,
         unsafe_allow_html=True,
@@ -153,7 +186,8 @@ def load_custom_css() -> None:
 
 def render_hero_section() -> None:
     """
-    Full-width banner + mission text + *stylish* pill-badges + contact buttons.
+    Full-width banner + horizontal contact bar immediately after hero image,
+    followed by mission text + stylish badges.
     Place `rid2.png` (1920×500 banner) in the app root.
     """
     import base64, pathlib, textwrap
@@ -171,7 +205,21 @@ def render_hero_section() -> None:
     else:
         st.error("❌  rid2.png not found – place it in the app folder")
 
-    # ── 2. Mission statement ───────────────────────────────────────
+    # ── 2. Contact bar immediately after hero image ────────────────
+    st.markdown(
+        textwrap.dedent(
+            """
+            <div class="navbar-links" style="margin-top:1.5rem;">
+                <a href="mailto:dr.ridwan.oladipo@gmail.com">📧 Contact</a>
+                <a href="https://linkedin.com/in/drridwanoladipoai" target="_blank">💼 LinkedIn</a>
+                <a href="https://github.com/dr-ridwanoladipo" target="_blank">🔗 GitHub</a>
+            </div>
+            """
+        ),
+        unsafe_allow_html=True,
+    )
+
+    # ── 3. Mission statement ──────────────────────────────────────
     st.markdown(
         """
         <p class="hero-description" style="text-align:center;margin-top:1.7rem;font-size:1.15rem;">
@@ -183,7 +231,7 @@ def render_hero_section() -> None:
         unsafe_allow_html=True,
     )
 
-    # ── 3. Stylish pill-badges  ────────────────────────────────────
+    # ── 4. Stylish pill-badges  ───────────────────────────────────
     st.markdown(
         """
         <div class="badge-container">
@@ -193,20 +241,6 @@ def render_hero_section() -> None:
             <span class="hero-badge">🩺 Production AI Systems</span>
         </div>
         """,
-        unsafe_allow_html=True,
-    )
-
-    # ── 4. Contact buttons ─────────────────────────────────────────
-    st.markdown(
-        textwrap.dedent(
-            """
-            <div class="contact-container" style="margin-top:1.8rem;">
-              <a href="mailto:dr.ridwan.oladipo@gmail.com" class="contact-button">📧 Contact</a>
-              <a href="https://linkedin.com/in/drridwanoladipoai" class="contact-button" target="_blank">💼 LinkedIn</a>
-              <a href="https://github.com/dr-ridwanoladipo" class="contact-button" target="_blank">🔗 GitHub</a>
-            </div>
-            """
-        ),
         unsafe_allow_html=True,
     )
 
