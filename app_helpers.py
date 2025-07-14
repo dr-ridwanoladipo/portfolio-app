@@ -186,9 +186,8 @@ def load_custom_css() -> None:
 
 def render_hero_section() -> None:
     """
-    Full-width banner + horizontal contact bar immediately after hero image,
-    followed by mission text + stylish badges.
-    Place `rid2.png` (1920×500 banner) in the app root.
+    Full-width banner + short mission text + stylish badges,
+    then horizontal contact navbar at the end.
     """
     import base64, pathlib, textwrap
     st.markdown('<div class="section-wrapper">', unsafe_allow_html=True)
@@ -205,21 +204,7 @@ def render_hero_section() -> None:
     else:
         st.error("❌  rid2.png not found – place it in the app folder")
 
-    # ── 2. Contact bar immediately after hero image ────────────────
-    st.markdown(
-        textwrap.dedent(
-            """
-            <div class="navbar-links" style="margin-top:1.5rem;">
-                <a href="mailto:dr.ridwan.oladipo@gmail.com">📧 Contact</a>
-                <a href="https://linkedin.com/in/drridwanoladipoai" target="_blank">💼 LinkedIn</a>
-                <a href="https://github.com/dr-ridwanoladipo" target="_blank">🔗 GitHub</a>
-            </div>
-            """
-        ),
-        unsafe_allow_html=True,
-    )
-
-    # ── 3. Mission statement ──────────────────────────────────────
+    # ── 2. Short mission statement ─────────────────────────────────
     st.markdown(
         """
         <p class="hero-description" style="text-align:center;margin-top:1.7rem;font-size:1.15rem;">
@@ -231,7 +216,7 @@ def render_hero_section() -> None:
         unsafe_allow_html=True,
     )
 
-    # ── 4. Stylish pill-badges  ───────────────────────────────────
+    # ── 3. Stylish skill badges ────────────────────────────────────
     st.markdown(
         """
         <div class="badge-container">
@@ -241,6 +226,20 @@ def render_hero_section() -> None:
             <span class="hero-badge">🩺 Production AI Systems</span>
         </div>
         """,
+        unsafe_allow_html=True,
+    )
+
+    # ── 4. Contact navbar immediately after badges ─────────────────
+    st.markdown(
+        textwrap.dedent(
+            """
+            <div class="navbar-links" style="margin-top:2rem;">
+                <a href="mailto:dr.ridwan.oladipo@gmail.com">📧 Contact</a>
+                <a href="https://linkedin.com/in/drridwanoladipoai" target="_blank">💼 LinkedIn</a>
+                <a href="https://github.com/dr-ridwanoladipo" target="_blank">🔗 GitHub</a>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
