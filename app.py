@@ -30,7 +30,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-
 # ===============================
 # MAIN APPLICATION
 # ===============================
@@ -166,11 +165,11 @@ def main():
         st.markdown("### 🎯 Unique Competitive Advantage")
         st.markdown("""
         **Medical Domain Expertise:** Recently graduated MD with clinical training and deep healthcare systems knowledge.
-
+        
         **Production ML Engineering:** End-to-end system development, deployment, and monitoring capabilities.
-
+        
         **Healthcare AI Specialization:** HIPAA-compliant, clinically-validated solutions with explainable AI.
-
+        
         **Cross-functional Leadership:** Proven ability to bridge medical teams and engineering organizations.
         """)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -180,14 +179,14 @@ def main():
         st.markdown("### 🚀 Target Opportunities")
         st.markdown("""
         Seeking roles with **world-class healthcare organizations** and **innovative medical AI companies**:
-
+        
         • Senior Medical Data Scientist  
         • Clinical AI Engineer  
         • Healthcare ML Lead  
         • Medical AI Product Manager  
         • Clinical Decision Support Developer  
         • Healthcare Innovation Specialist
-
+        
         **Open to:** Remote, Hybrid, or Relocation
         """)
         st.markdown('</div>', unsafe_allow_html=True)

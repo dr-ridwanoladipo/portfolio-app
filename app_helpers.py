@@ -329,7 +329,7 @@ def load_custom_css() -> None:
             box-shadow:0 4px 18px rgba(0,0,0,.08);
         }
         .timeline-dot {
-            position:absolute;left:-2rem;top:1.4rem;width:14px;height:14px;border-radius:50%;
+            position:absolute;left:-1.2rem;top:1.4rem;width:14px;height:14px;border-radius:50%;
             background:var(--accent-teal);border:3px solid #fff;
             box-shadow:0 0 0 3px rgba(16,185,129,.2);
         }
@@ -425,11 +425,10 @@ def load_custom_css() -> None:
         }
 
 
-
         .section-title {
             font-size: 1.5rem !important;
             font-weight: 600 !important;
-            line-height: 0 !important;
+            line-height: 1.5rem !important;
         }
 
         .section-title::after {
