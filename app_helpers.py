@@ -242,7 +242,7 @@ def load_custom_css() -> None:
             gap: 1.5rem;
             margin-top: -0.5rem;
             background: var(--dark-navy);
-            padding: 0.5rem 0.5rem;
+            padding: 0.1rem 0.1rem;
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
         .navbar-links a {
@@ -365,7 +365,7 @@ def load_custom_css() -> None:
             width:100% !important;
             text-align:center;
         }
-        
+
         /* _________CONTACT BUTTON _____________*/
         .contact-button {
             background: var(--accent-teal);
@@ -378,7 +378,7 @@ def load_custom_css() -> None:
             display: inline-block;
             transition: all 0.3s ease;
         }
-        
+
         .contact-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(16,185,129,.4);
@@ -423,7 +423,33 @@ def load_custom_css() -> None:
             border-radius: 8px;
             font-weight: 500;
         }
-        
+
+
+
+        .section-title {
+            font-size: 1.5rem !important;
+            font-weight: 600 !important;
+            line-height: 0 !important;
+        }
+
+        .section-title::after {
+            bottom: 0 !important;
+        }
+
+        h3 {
+            font-size: 1.2rem !important;
+            font-weight: 600 !important;
+        }
+
+        h4 {
+            font-size: 1.1rem !important;
+            font-weight: 600 !important;
+        }
+
+        .tech-container {
+            margin-bottom: 0.9rem !important;
+        }
+
 
         /* ---------- CLEAN UP ---------- */
         #MainMenu, footer, header, .stDeployButton {visibility:hidden;}
@@ -435,7 +461,6 @@ def load_custom_css() -> None:
         }
         .hero-description {max-width:100% !important;text-align:left !important;}
         .section-subtitle {max-width:100% !important;text-align:left !important;}
-        .section-header {text-align:left !important;}
         .section-header .section-title {margin-bottom:1rem;}
         .section-header .section-subtitle {margin-top:0.3rem;}
         </style>
@@ -537,7 +562,7 @@ def render_project_card(project_data: Dict[str, Any], col):
         # ── header ──────────────────────────────────────────────
         st.markdown(
             f"""
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div style="display:flex;justify-content:flex-start;align-items:center;gap:0.8rem;margin-bottom:0.3rem;">
                 <h3 style="margin:0;color:#1f2937;">{project_data['icon']} {project_data['title']}</h3>
                 <span class="{project_data['status_class']}">{project_data['status']}</span>
             </div>
@@ -562,7 +587,7 @@ def render_project_card(project_data: Dict[str, Any], col):
 
         # ── action buttons side-by-side ─────────────────────────
         demo = project_data.get("demo_url")
-        git  = project_data.get("github_url")
+        git = project_data.get("github_url")
 
         if demo or git:
             b1, b2 = st.columns(2)
