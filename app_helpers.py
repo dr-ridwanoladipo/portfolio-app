@@ -285,13 +285,13 @@ def render_hero_section() -> None:
     """
     Full-width banner + horizontal contact bar immediately after hero image,
     followed by mission text + stylish badges.
-    Place `rid2.png` (1920×500 banner) in the app root.
+    Place `hero.png` (1920×500 banner) in the app root.
     """
     import base64, pathlib, textwrap
     st.markdown('<div class="section-wrapper">', unsafe_allow_html=True)
 
     # ── 1. Banner image ─────────────────────────────────────────────
-    img_path = pathlib.Path("rid2.png")
+    img_path = pathlib.Path("hero.png")
     if img_path.exists():
         b64 = base64.b64encode(img_path.read_bytes()).decode()
         st.markdown(
@@ -300,7 +300,7 @@ def render_hero_section() -> None:
             unsafe_allow_html=True,
         )
     else:
-        st.error("❌  rid2.png not found – place it in the app folder")
+        st.error("❌  hero.png not found – place it in the app folder")
 
     # ── 2. Contact bar immediately after hero image ────────────────
     st.markdown(
@@ -459,8 +459,14 @@ def render_contact_form():
             if email and message:
                 try:
                     from send_email import send_email
-                    full_message = f"Subject: {subject}\nFrom: {email}\n\n{message}"
-                    send_email(full_message)
+                    subject_line = f"Contact Form: {subject}"
+                    body_text = (
+                        f"NEW CONTACT FORM SUBMISSION\n\n"
+                        f"📧 From: {email}\n"
+                        f"📝 Subject: {subject}\n\n"
+                        f"{message}"
+                    )
+                    send_email(subject_line, body_text)
                     st.success("✅ Message sent successfully!")
                 except Exception as e:
                     st.error(f"❌ Error: {str(e)}")
@@ -559,7 +565,7 @@ def get_timeline_data():
         {
             "year": "2025",
             "title": "Medical AI Specialist",
-            "description": "Advanced MLOps with FastAPI, Docker, and comprehensive AWS architecture (ECS/Fargate, ECR, ALB, Route 53, EC2, Lambda, Auto-scaling, EventBridge, Boto3 automation). CI/CD pipelines, LLMs, RAG pipelines, and AI APIs — building enterprise-ready healthcare solutions."
+            "description": "Advanced MLOps with FastAPI, Docker, and comprehensive AWS architecture (ECS/Fargate, ECR, ALB, Route 53, EC2, Lambda, Auto-scaling, EventBridge, Boto3 automation). CI/CD pipelines, LLMs, RAG pipelines, and AI APIs — building enterprise-ready healthcare solutions.  <span style='color:#10b981; font-weight:600; font-style:italic;'>Currently preparing for AWS Machine Learning Specialty Certification</span>"
         }
     ]
 
