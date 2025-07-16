@@ -101,6 +101,7 @@ def load_custom_css() -> None:
             padding: 0.3rem 1rem;
             border-radius: 20px;
             font-size: 0.8rem;
+            font-weight: 620;
         }
 
         /* ========== NAVBAR LINKS ========== */
@@ -333,8 +334,8 @@ def render_hero_section() -> None:
         """
         <div class="badge-container">
             <span class="hero-badge">🎓 MD • 2023 Graduate</span>
+            <span class="hero-badge">🚀 MLOps • Docker • AWS</span>
             <span class="hero-badge">🤖 Deep Learning & NLP</span>
-            <span class="hero-badge">🚀 MLOps & AWS</span>
             <span class="hero-badge">🩺 Production AI Systems</span>
         </div>
         """,
