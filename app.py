@@ -47,10 +47,10 @@ def main():
     # ========== MISSION STATEMENT ==========
     render_section_header(
         "🎯 Mission Statement",
-        "As a recently graduated Medical Doctor with specialized expertise in AI and machine learning, "
-        "I'm dedicated to developing production-grade medical AI systems that transform clinical decision-making. "
-        "My unique combination of medical domain knowledge and advanced technical skills positions me to build "
-        "clinically-validated, explainable AI solutions for real-world healthcare challenges."
+        "As a Medical Doctor with rigorous clinical training and deep specialization in AI and machine learning, "
+        "I'm dedicated to building production-grade medical AI systems that transform clinical decision-making. "
+        "My unique blend of medical expertise and advanced technical skills enables me to develop "
+        "clinically-informed, explainable AI solutions that tackle real-world healthcare challenges at scale."
     )
 
     st.markdown('<hr class="section-divider">', unsafe_allow_html=True)  # ⬅ divider
@@ -58,7 +58,7 @@ def main():
     # ========== FEATURED PROJECTS ==========
     render_section_header(
         "🏥 Featured Medical AI Portfolio",
-        "Production-ready healthcare AI systems combining clinical expertise with advanced machine learning"
+        "Production-grade medical AI systems combining advanced machine learning with deep clinical insight, built to be seamlessly deployable across diverse healthcare challenges."
     )
 
     # Create columns for projects
@@ -109,49 +109,6 @@ def main():
 
     st.markdown('<hr class="section-divider">', unsafe_allow_html=True)  # ⬅ divider
 
-    # ========== PROFESSIONAL IMPACT ==========
-    render_section_header(
-        "📊 Professional Impact",
-        "Quantified achievements in medical education, clinical practice, and AI development"
-    )
-
-    impact_col1, impact_col2, impact_col3 = st.columns(3)
-
-    with impact_col1:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🎓 Educational Leadership")
-        st.markdown("""
-        - Founded **Distinction Group** reaching 6+ universities
-        - Trained **5,000+ students** in high-income skills
-        - **Best Teacher** awards at multiple centers
-        - Alumni now lead student associations on LinkedIn
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    with impact_col2:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🏥 Clinical Excellence")
-        st.markdown("""
-        - **Top scorer** in clinical medicine examination
-        - **10/12 excellent grades** in medical school
-        - **2023 M.B.Ch.B** graduate with distinction
-        - Strong foundation in patient care and diagnostics
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    with impact_col3:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
-        st.markdown("### 🚀 AI System Performance")
-        st.markdown("""
-        - **97% sensitivity** in heart disease detection
-        - **<200ms** API response times
-        - **99.9% uptime** production systems
-        - Clinical-grade accuracy with explainable AI
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('<hr class="section-divider">', unsafe_allow_html=True)  # ⬅ divider
-
     # ========== VALUE PROPOSITION ==========
     render_section_header(
         "💼 Professional Value Proposition",
@@ -164,13 +121,13 @@ def main():
         st.markdown('<div class="project-card">', unsafe_allow_html=True)
         st.markdown("### 🎯 Unique Competitive Advantage")
         st.markdown("""
-        **Medical Domain Expertise:** Recently graduated MD with clinical training and deep healthcare systems knowledge.
-        
-        **Production ML Engineering:** End-to-end system development, deployment, and monitoring capabilities.
-        
-        **Healthcare AI Specialization:** HIPAA-compliant, clinically-validated solutions with explainable AI.
-        
-        **Cross-functional Leadership:** Proven ability to bridge medical teams and engineering organizations.
+        **Medical Domain Expertise:** MD with rigorous clinical training and deep understanding of healthcare systems.
+
+        **Production ML Engineering:** Architected end-to-end systems with robust deployment, monitoring, and scaling.
+
+        **Healthcare AI Specialization:** Built HIPAA-conscious, clinically-informed AI systems with robust explainability for real-world care.
+
+        **Cross-functional Leadership:** Bridge medical teams and engineering orgs to drive impactful solutions.
         """)
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -178,16 +135,16 @@ def main():
         st.markdown('<div class="project-card">', unsafe_allow_html=True)
         st.markdown("### 🚀 Target Opportunities")
         st.markdown("""
-        Seeking roles with **world-class healthcare organizations** and **innovative medical AI companies**:
-        
+        Seeking roles with **world-class healthcare organizations** and **cutting-edge medical AI innovators**:
+
         • Senior Medical Data Scientist  
         • Clinical AI Engineer  
         • Healthcare ML Lead  
         • Medical AI Product Manager  
         • Clinical Decision Support Developer  
-        • Healthcare Innovation Specialist
-        
-        **Open to:** Remote, Hybrid, or Relocation
+        • Healthcare Innovation Specialist  
+
+        **Open to:** Remote, Hybrid, or Relocation.
         """)
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -241,12 +198,12 @@ def main():
     with st.expander("🏆 Professional Certifications & Training", expanded=False):
         st.markdown("""
         <ul class="certification-list">
-          <li>🏛️ <strong>Harvard CS50</strong> - Introduction to Computer Science</li>
-          <li>🤖 <strong>Complete AI & ML Bootcamp</strong> - Andrei Neagoie, Daniel Bourke</li>
-          <li>🐍 <strong>100 Days of Code: Python</strong> - Angela Yu</li>
-          <li>🚀 <strong>FastAPI Complete Course</strong> - Eric Roby, Chad Darby</li>
-          <li>🏥 <strong>Deep Learning for Medical Image Analysis</strong> - PyTorch specialization</li>
-          <li>🤖 <strong>Generative AI with Langchain</strong> - Krish Naik</li>
+          <li>🏛️ <strong>Harvard CS50</strong>: Computer Science Fundamentals</li>
+          <li>🧠 <strong>Advanced ML Algorithms</strong>: J. Portilla, K. Naik, A. Neagoie, D. Bourke</li>
+          <li>🗄️ <strong>SQL & Data Engineering</strong>: Advanced SQL & PostgreSQL Mastery (N. Schuler)</li>
+          <li>🏥 <strong>Deep Learning for Medical Imaging</strong>: PyTorch specialization</li>
+          <li>🚀 <strong>FastAPI, Docker & MLOps</strong>: L. Kant, E. Roby</li>
+          <li>🤖 <strong>Generative AI & Langchain</strong>: Built full-stack RAG pipelines with Hugging Face (K. Naik)</li>
         </ul>
         """, unsafe_allow_html=True)
         st.info("🎯 Currently preparing for **AWS Machine Learning Specialty Certification**")
@@ -256,7 +213,7 @@ def main():
     # ========== CONTACT SECTION ==========
     render_section_header(
         "🤝 Let's Build the Future of Healthcare AI",
-        "Ready to revolutionize healthcare through AI? Let's connect and discuss how we can "
+        "Excited to transform healthcare with AI? Let's connect and discuss how we can "
         "transform patient care through intelligent, compassionate technology solutions."
     )
 
